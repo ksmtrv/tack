@@ -49,8 +49,8 @@ public class Main {
         return sum;
     }
 
-    private static double getNMemberOfSequence(double x, int motion, double k) {
-        return Math.pow(x, motion) / k;
+    private static double getNMemberOfSequence(double x, int i, double k) {
+        return Math.pow(x, i) / k;
     }
 
     private static double calculateSumOfSequenceEpsilon(double x, double e, int i) {
