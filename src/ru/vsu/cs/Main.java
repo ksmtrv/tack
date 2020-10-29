@@ -62,7 +62,7 @@ public class Main {
         while (Math.abs(result) > e) {
             sumEpsilon += result;
             k = k * 2 * iteration;
-            result = getNMemberOfSequence(x, iteration, k);
+            result = getNMemberOfSequence(x, i, k);
             iteration++;
         }
         double[] arraySum = {sumEpsilon, iteration};
