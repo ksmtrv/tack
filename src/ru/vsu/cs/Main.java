@@ -14,18 +14,16 @@ public class Main {
             System.out.println("X entered out of range (-1; 1)");
         } else {
             double resultSumFunction = calculateFunction(x);
-            printValue("function using Math --> ", resultSumFunction);
+            printValue(" function using Math --> ", resultSumFunction);
 
             double resultSumSequence = calculateSumOfSequence(x, n);
-            printValue("of the first N elements --> ", resultSumSequence);
+            printValue(" of the first N elements --> ", resultSumSequence);
 
-            double resultSumOfSequenceEpsilon = calculateSumOfSequenceEpsilon(x, e, 0);
-            int numberOfIterationsGreaterThanEpsilon = (int) calculateSumOfSequenceEpsilon(x, e, 1);
-            printValueEpsilon(" ", resultSumOfSequenceEpsilon, numberOfIterationsGreaterThanEpsilon);
+            RowCalculateResult resultSumOfSequenceEpsilon = calculateSumOfSequenceEpsilon(x, e);
+            printValueEpsilon(" ", resultSumOfSequenceEpsilon);
 
-            double resultSumOfSequenceEpsilonDividedBy10 = calculateSumOfSequenceEpsilon(x, e / 10, 0);
-            int numberOfIterationsGreaterThanEpsilonDividedBy10 = (int) calculateSumOfSequenceEpsilon(x, e / 10, 1);
-            printValueEpsilon("/10 ", resultSumOfSequenceEpsilonDividedBy10, numberOfIterationsGreaterThanEpsilonDividedBy10);
+            RowCalculateResult resultSumOfSequenceEpsilonDividedBy10 = calculateSumOfSequenceEpsilon(x, e / 10);
+            printValueEpsilon("/10 ", resultSumOfSequenceEpsilonDividedBy10);
         }
     }
 
@@ -34,39 +32,40 @@ public class Main {
     }
 
     private static double calculateSumOfSequence(double x, double n) {
-        double sum = 1 + x / 2;
+        double sumN = 1 + x / 2;
         double k = 2;
 
         for (int i = 2; i <= n; i++) {
             k = k * 2 * i;
             double result = getNMemberOfSequence(x, i, k);
             if (checkParity(i)) {
-                sum = sum - result;
+                sumN = sumN - result;
             } else {
-                sum = sum + i * result;
+                sumN = sumN + i * result;
             }
         }
-        return sum;
+        return sumN;
     }
 
     private static double getNMemberOfSequence(double x, int i, double k) {
         return Math.pow(x, i) / k;
     }
 
-    private static double calculateSumOfSequenceEpsilon(double x, double e, int i) {
+    private static RowCalculateResult calculateSumOfSequenceEpsilon(double x, double e) {
         double sumEpsilon = 1;
         int iteration = 1;
         double k = 2;
         double result = x / 2;
+        int i = 2;
 
         while (Math.abs(result) > e) {
             sumEpsilon += result;
-            k = k * 2 * iteration;
+            k = k * 2 * i;
             result = getNMemberOfSequence(x, i, k);
             iteration++;
+            i++;
         }
-        double[] arraySum = {sumEpsilon, iteration};
-        return arraySum[i];
+        return new RowCalculateResult(iteration, sumEpsilon);
     }
 
     private static boolean checkParity(int i) {
@@ -87,8 +86,9 @@ public class Main {
         System.out.println("The sum" + phrase + resultSum);
     }
 
-    private static void printValueEpsilon(String phrase, double resultSum, int resultIteration) {
+    private static void printValueEpsilon(String phrase, RowCalculateResult rowCalculateResult) {
         System.out.println("The sum of the first N elements superior in absolute value of the epsilon" +
-                phrase + "number --> " + resultSum + ". For " + resultIteration + " number of elements");
+                phrase + "number --> " + rowCalculateResult.getSumEpsilon() +
+                ". For " + rowCalculateResult.getIteration() + " number of elements");
     }
 }
