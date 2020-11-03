@@ -7,7 +7,6 @@ public class RowCalculateResult {
     public RowCalculateResult(int iteration, double sumEpsilon) {
         this.iteration = iteration;
         this.sumEpsilon = sumEpsilon;
-
     }
 
     public int getIteration(){
