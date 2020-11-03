@@ -1,8 +1,8 @@
 package ru.vsu.cs;
 
 public class RowCalculateResult {
-    private int iteration;
-    private double sumEpsilon;
+    int iteration;
+    double sumEpsilon;
 
     public RowCalculateResult(int iteration, double sumEpsilon) {
         this.iteration = iteration;
